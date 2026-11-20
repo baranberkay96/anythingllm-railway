@@ -1,0 +1,107 @@
+{
+  "name": "AnythingLLM v1 Private AI Workspace (RAG + Agents)",
+  "description": "Chat with your documents, RAG and AI agents. Password on by default.",
+  "category": "AI/ML",
+  "tags": [
+    "anythingllm",
+    "rag",
+    "llm",
+    "ai-agents",
+    "chat-with-documents",
+    "lancedb",
+    "openai",
+    "anthropic",
+    "ollama",
+    "self-hosted"
+  ],
+  "image": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/anything-llm.svg",
+  "upstream": {
+    "anythingllm": "Mintplex-Labs/anything-llm v1.20.0 (MIT), image mintplexlabs/anythingllm:1.20.0 pinned by index digest",
+    "checked": "2026-11-20"
+  },
+  "services": {
+    "AnythingLLM": {
+      "icon": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/anything-llm.svg",
+      "source": {
+        "repo": "baranberkay96/anythingllm-railway",
+        "rootDirectory": "/services/anythingllm"
+      },
+      "startCommand": null,
+      "preDeployCommand": null,
+      "healthcheckPath": "/api/ping",
+      "healthcheckTimeout": 600,
+      "restartPolicyType": "ALWAYS",
+      "numReplicas": 1,
+      "cronSchedule": null,
+      "publicDomain": true,
+      "targetPort": 3001,
+      "tcpProxy": null,
+      "volume": {
+        "mountPath": "/storage"
+      },
+      "variables": {
+        "AUTH_TOKEN": {
+          "defaultValue": "${{secret(24, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\")}}",
+          "description": "Sign-in password (single-user password mode), generated at deploy. 8-128 characters of A-Z a-z 0-9 _ - ! @ $ % ^ & * ( ) ; or the instance locks until you fix it.",
+          "required": true
+        },
+        "JWT_SECRET": {
+          "defaultValue": "${{secret(48, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\")}}",
+          "description": "Signs session tokens. Generated at deploy; changing it signs everyone out.",
+          "required": true
+        },
+        "SIG_KEY": {
+          "defaultValue": "${{secret(48, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\")}}",
+          "description": "Encryption key for stored credentials. Generated at deploy; never change it once data exists.",
+          "required": true
+        },
+        "SIG_SALT": {
+          "defaultValue": "${{secret(48, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\")}}",
+          "description": "Encryption salt paired with SIG_KEY. Generated at deploy; never change it once data exists.",
+          "required": true
+        },
+        "STORAGE_DIR": {
+          "defaultValue": "/storage",
+          "description": "Data directory on the Railway volume: database, documents, vectors (LanceDB), models and saved settings.",
+          "required": true
+        },
+        "SERVER_PORT": {
+          "defaultValue": "3001",
+          "description": "Port AnythingLLM listens on.",
+          "required": true
+        },
+        "PORT": {
+          "defaultValue": "3001",
+          "description": "Port Railway's healthcheck and public domain use; keep it equal to SERVER_PORT.",
+          "required": true
+        },
+        "DISABLE_TELEMETRY": {
+          "defaultValue": "true",
+          "description": "true = send no anonymous usage telemetry to Mintplex Labs.",
+          "required": false
+        },
+        "OPEN_AI_KEY": {
+          "defaultValue": "",
+          "description": "Optional. OpenAI API key; pick OpenAI as the LLM in onboarding. Leave empty to enter keys in the UI.",
+          "required": false
+        },
+        "ANTHROPIC_API_KEY": {
+          "defaultValue": "",
+          "description": "Optional. Anthropic API key for Claude models.",
+          "required": false
+        },
+        "GEMINI_API_KEY": {
+          "defaultValue": "",
+          "description": "Optional. Google Gemini API key.",
+          "required": false
+        },
+        "OPENROUTER_API_KEY": {
+          "defaultValue": "",
+          "description": "Optional. OpenRouter API key (hundreds of models with one key).",
+          "required": false
+        }
+      }
+    }
+  },
+  "buckets": []
+}
