@@ -37,7 +37,7 @@
       "targetPort": 3001,
       "tcpProxy": null,
       "volume": {
-        "mountPath": "/storage"
+        "mountPath": "/app/server/storage"
       },
       "variables": {
         "AUTH_TOKEN": {
@@ -61,8 +61,8 @@
           "required": true
         },
         "STORAGE_DIR": {
-          "defaultValue": "/storage",
-          "description": "Data directory on the Railway volume: database, documents, vectors (LanceDB), models and saved settings.",
+          "defaultValue": "/app/server/storage",
+          "description": "Data directory on the Railway volume (upstream's Docker path; the server finds the document collector relative to it): database, documents, LanceDB vectors, models, saved settings.",
           "required": true
         },
         "SERVER_PORT": {

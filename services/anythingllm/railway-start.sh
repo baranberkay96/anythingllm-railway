@@ -23,12 +23,16 @@ for name in $(compgen -e); do
 	[ -z "${!name}" ] && unset "$name"
 done
 
-storage=${STORAGE_DIR:-/storage}
+storage=${STORAGE_DIR:-/app/server/storage}
 case "$storage" in
 /*) ;;
-*) warn "STORAGE_DIR='$storage' is not an absolute path; using /storage"; storage=/storage ;;
+*) warn "STORAGE_DIR='$storage' is not an absolute path; using /app/server/storage"; storage=/app/server/storage ;;
 esac
 export STORAGE_DIR=$storage
+if [ "$storage" != /app/server/storage ]; then
+	# The server finds the collector's upload folder at $STORAGE_DIR/../../collector/hotdir.
+	warn "STORAGE_DIR=$storage: document uploads only work with /app/server/storage (upstream's layout)"
+fi
 
 port=${SERVER_PORT:-${PORT:-3001}}
 case "$port" in

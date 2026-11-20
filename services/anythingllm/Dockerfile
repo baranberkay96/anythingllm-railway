@@ -9,7 +9,7 @@ USER root
 COPY --chmod=0755 railway-start.sh /usr/local/bin/railway-start.sh
 RUN bash -n /usr/local/bin/railway-start.sh && command -v setpriv
 
-ENV STORAGE_DIR=/storage \
+ENV STORAGE_DIR=/app/server/storage \
     SERVER_PORT=3001 \
     PORT=3001
 EXPOSE 3001
