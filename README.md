@@ -1,5 +1,7 @@
 # Deploy and Host AnythingLLM with Railway
 
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/anythingllm-v1-private-ai-workspace-rag-?referralCode=20H68q)
+
 AnythingLLM is an all-in-one AI workspace from Mintplex Labs: chat with your documents (RAG), run AI agents with web browsing and tools, and switch between 30+ LLM providers or your own Ollama server. This community template runs the official AnythingLLM 1.20 image on Railway with a password, a persistent volume and settings that survive redeploys.
 
 ## About Hosting AnythingLLM
